@@ -4,37 +4,28 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
+var items = ["Buy Food", "Cook Food", "Eat Food"];
 app.set("view engine", "ejs");
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (req, res) {
   var today = new Date();
-  var currentDay = today.getDay();
-  var day = "";
+  var options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  };
 
-  switch (currentDay) {
-    case 0:
-      day = `it's Sunday!`;
-      break;
-    case 1:
-      day = `it's Monday!`;
-      break;
-    case 2:
-      day = `it's Tuesday!`;
-      break;
-    case 3:
-      day = `it's Wednesday!`;
-      break;
-    case 4:
-      day = `it's Thursday!`;
-      break;
-    case 5:
-      day = `it's Friday!`;
-      break;
-    case 6:
-      day = `it's Saturday!`;
-      break;
-  }
-  res.render("list", { kindofDay: day });
+  var day = today.toLocaleDateString("en-us", options);
+
+  res.render("list", { kindofDay: day, newListItem: items });
+});
+
+app.post("/", function (req, res) {
+  var item = req.body.newItem;
+  items.push(item);
+  res.redirect("/");
 });
 
 app.listen(3000, function () {
