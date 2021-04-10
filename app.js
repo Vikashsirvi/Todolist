@@ -32,7 +32,11 @@ const item3 = new Item({
   name: "<-- Hit this to delete an item.",
 });
 
-const defaultItems = [item1, item2, item3];
+const item4 = new Item({
+  name: "Create your custom route using /My-Note",
+});
+
+const defaultItems = [item1, item2, item3, item4];
 
 const listSchema = {
   name: String,
