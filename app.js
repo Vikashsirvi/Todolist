@@ -32,11 +32,7 @@ const item3 = new Item({
   name: "<-- Hit this to delete an item.",
 });
 
-const item4 = new Item({
-  name: "Create your custom route using /My-Note",
-});
-
-const defaultItems = [item1, item2, item3, item4];
+const defaultItems = [item1, item2, item3];
 
 const listSchema = {
   name: String,
@@ -101,16 +97,6 @@ app.post("/", function (req, res) {
       res.redirect(`/${listName}`);
     });
   }
-});
-
-app.get("/work", function (req, res) {
-  res.render("list", { listTitle: "Work List", newListItem: workItems });
-});
-
-app.post("/work", function (req, res) {
-  let item = req.body.newItem;
-  workItems.push(item);
-  res.redirect("/work");
 });
 
 app.post("/delete", function (req, res) {
